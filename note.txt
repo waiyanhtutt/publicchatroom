@@ -1,0 +1,183 @@
+// npm init -y
+// npm install firebase or npm install firebase@latest
+// npm install express or npm install express@latest
+
+=> How to use vite 
+
+1. install
+    npm install --save-dev vite
+
+2. Create a new file as vite.config.js
+    import { defineConfig } from "vite";
+    export default defineConfig({
+    root: "./src",
+    build: {
+        outDir: "../dist", // define the output diretory , The output directory
+    },
+    });
+
+
+3. Update package.json
+     "scripts":{
+         "dev": "vite",
+        "build": "vite build"
+     }
+
+4. Run Build the app for production
+    npm run build
+
+5. Run Vite in development server
+    npm run dev 
+
+=> How to Install Tailwind css
+
+-------------------------------------------
+=> https://tailwindcss.com/docs/installation/using-postcss
+
+->postcss ကို သုံးရမယ်
+
+=> Command
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init // ဖိုင် တည်ဆောက်ပေး (This create a Tailwind.config.js file into your project)
+
+2. Add Tailwind to your postcss configuration
+create postcss.config.js manually (Note: Do not Forget to expot as ES6)
+postcss ကို manually create မလုပ်ချင်ရင် ဒီ command ကိုသုံး
+
+=> npx tailwindcss init -p
+
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  }
+}
+
+3. Configure your template paths
+
+---------------------------------------------
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+content: ["./src/**/*.{html,js,jsx}"],
+=> jsx mean react.js အတွက် folder တွေပါ သုံးလို့ရအောင်ထည့်
+
+**/* (means effect in Subfolder)
+---------------------------------------------
+
+4. Add the Tailwind directive to your Css 
+create a css file located to (eg.src/css/main.css)
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+5. include css link to each html files
+<link rel="stylesheet" href="./css/main.css" type="text/css />
+
+npm run build
+nom run dev
+
+-------------------------------------------------
+1.Install Date fns 
+
+https://date-fns.org/
+
+npm install date-fns --save 
+
+2. import in src/main.js or src/js/uielements.js and src/js/lielements.js
+
+3.import { format } from "date-fns"
+
+4. const formatdate = format(new Date(createdtime), "do MMM yyyy");
+
+---------------------------------------------------
+
+=> Install Font Awesome 6
+
+1. Install 
+
+npm install @fortawesome/fontawesome-free
+
+2. import in src/main.js or src/js/authsigininapp.js and src/js/app.js
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+---------------------------------------------------
+
+=> Install Express
+
+npm instal express otr npm install express@latest 
+
+nodemon server.js
+
+=>import 
+
+import express from 'express';
+
+----------------------------------------------------
+
+=> localhost 8000 မှာ run စေချင်လို့
+
+server.js ထဲမှာ ဒီလိုရေး
+
+import express from "express";
+
+// Express Server Setup
+
+const exapp = express();
+
+exapp.use(express.static("dist")); // Server static files from the public folder
+
+// start the Express server
+
+exapp.listen(8000, () => {
+  console.log("Server is Running on http://localhost:8000");
+});
+
+=> And Then (vite.config.js)
+
+rollupOptions ဆိုပြီး build ထဲမှာ bind
+
+build: {
+    outDir: "../dist", // define the output diretory , The output directory
+    rollupOptions: {
+      input: {
+        main: "./src/index.html",
+        profile: "./src/profile.html",
+        reset: "./src/reset.html",
+        signin: "./src/signin.html",
+        signup: "./src/signup.html",
+      },
+    },
+  },
+
+
+----------------------------------------------------
+=> Deploy on Cloud server
+
+1. Your project need Repo public/private to Github
+
+2. Singin your account To https://render.com/  
+
+3. Prepare the build output 
+  your project must builded and tpically located in the 'dist' directory
+
+4. Create a new static site 
+  click > "New + " > static site > Choose Github > your account > Choose Repo > Connect
+
+5. Name : publicchatroom
+    Branch: main/master ?
+    build command : npm run build (react,vue,vite, etc...), ng build (Angular)
+    publish directory : dist
+    start command : 
+
+6. Environmaent Variable = copy paste .env data to Environmaent Variable
+
+    
