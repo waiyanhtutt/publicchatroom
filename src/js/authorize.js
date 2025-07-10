@@ -23,6 +23,8 @@ export function Authorize() {
         displayName: fullname,
         photoURL: "https://static.thenounproject.com/png/65476-200.png",
       }).then(() => {
+        // set name to local Storage
+        setLocalName(fullname);
         // Redirect to index.html
         window.location.href = "../index.html";
       });

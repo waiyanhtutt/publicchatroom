@@ -7,6 +7,9 @@ import {
   query,
   where,
   orderBy,
+  doc,
+  deleteDoc,
+  getDocs,
 } from "firebase/firestore";
 
 export function Chatroom(room, username) {
@@ -78,8 +81,35 @@ export function Chatroom(room, username) {
     curuser = newusername;
     localStorage.setItem("username", curuser);
 
-    console.log(`User changed to ${curuser}`);
+    // console.log(`User changed to ${curuser}`);
   };
+
+  // Delete All Message in every 15s
+  const deleteAllMessages = () => {
+    let deleteinter = setInterval(async () => {
+      try {
+        const getdatas = await getDocs(dbRef);
+
+        // stop Function call if no data in database
+        if (getdatas.empty) {
+          console.log("No message to delete");
+
+          clearInterval(deleteinter);
+          return true;
+        }
+
+        getdatas.forEach(async (getdata) => {
+          await deleteDoc(doc(db, "chats", getdata.id));
+        });
+
+        console.log("All Message Delete Successfully");
+      } catch (error) {
+        console.error("Error Deleting Message : ", error);
+      }
+    }, 15000); // 15s
+  };
+
+  deleteAllMessages();
 
   return { addChat, getChats, updateChatroom, updateUsername };
 }
